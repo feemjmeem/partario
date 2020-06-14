@@ -21,10 +21,8 @@ youts = googleapiclient.discovery.build(
     developerKey = cfg["youtube"]["token"]
 )
 
-# initialize command tree
-@pt.command()
-
 # youtube search
+@pt.command()
 async def yt(ctx, *args):
     # form query, limiting fields to what we're going to use
     query = youts.search().list(
@@ -44,6 +42,25 @@ async def yt(ctx, *args):
     print(o)
     # SEND SPIKE
     await ctx.send(o)
+
+@pt.command()
+async def pet(ctx, member: discord.Member = None):
+    # who now?
+    giver = ctx.author
+    print(giver)
+    if member == giver:
+        o = "*stares at %s and shakes his head.*" % (giver.mention)
+    elif member == pt.user:
+        o = "*shrugs and pats himself on the head.*"
+    elif member:
+        o = "*glances between %s and %s uncomfortably.*" % (giver.mention, member.mention)
+    else:
+        o = "*looks around, then shrugs.*"
+    await ctx.send(o)
+
+@pt.command()
+async def feem(ctx):
+    await ctx.send("who the fuck is feem")
 
 # SPIKE SENT
 pt.run(cfg["discord"]["token"])
