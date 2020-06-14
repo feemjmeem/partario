@@ -47,7 +47,6 @@ async def yt(ctx, *args):
 async def pet(ctx, member: discord.Member = None):
     # who now?
     giver = ctx.author
-    print(giver)
     if member == giver:
         o = "*stares at %s and shakes his head.*" % (giver.mention)
     elif member == pt.user:
