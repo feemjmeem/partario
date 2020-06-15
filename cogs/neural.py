@@ -27,6 +27,29 @@ class NeuralNetProcessor(commands.Cog):
         
     @commands.command()
     @commands.is_owner()
+    async def load(self, ctx, *, cog: str):
+        try:
+            self.bot.load_extension(cog)
+        except Exception as e:
+            await ctx.send(f"Oh no: {type(e).__name__} - {e}")
+        else:
+            await ctx.send("i deed it")
+    
+    @commands.command()
+    @commands.is_owner()
+    async def unload(self, ctx, *, cog: str):
+        if cog == "cogs.neural":
+            await ctx.send("NOPE")
+        else:
+            try:
+                self.bot.unload_extension(cog)
+            except Exception as e:
+                await ctx.send(f"Oh no: {type(e).__name__} - {e}")
+            else:
+                await ctx.send("i deed it")
+    
+    @commands.command()
+    @commands.is_owner()
     async def reload(self, ctx, *, cog: str):
         try:
             if cog == "all":
