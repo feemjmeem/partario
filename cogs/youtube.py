@@ -1,5 +1,6 @@
 # he can do the youtubes
 import html
+import sys
 import googleapiclient.discovery
 from builtins import cfg
 from datetime import datetime
@@ -28,11 +29,15 @@ class YoutubeProcessor(commands.Cog):
         )
         r = query.execute()
         # form output
-        o = "https://youtube.com/watch?v=%s [%s] date[%s] author[%s]" % (
-            r["items"][0]["id"]["videoId"],
-            html.unescape(r["items"][0]["snippet"]["title"]),
-            datetime.strptime(r["items"][0]["snippet"]["publishedAt"],"%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d"),
-            html.unescape(r["items"][0]["snippet"]["channelTitle"]))
+        try:
+            o = "https://youtube.com/watch?v=%s [%s] date[%s] author[%s]" % (
+                r["items"][0]["id"]["videoId"],
+                html.unescape(r["items"][0]["snippet"]["title"]),
+                datetime.strptime(r["items"][0]["snippet"]["publishedAt"],"%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d"),
+                html.unescape(r["items"][0]["snippet"]["channelTitle"]))
+        except:
+            o = "Something weird happened. Try again."
+            print("Oh no:", sys.exc_info()[0])
         await ctx.send(o)
 
 def setup(bot):
