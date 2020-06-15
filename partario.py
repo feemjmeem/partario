@@ -14,7 +14,7 @@ extensions = cfg["core"]["extensions"]
 bot = commands.Bot(command_prefix='.')
 if __name__ == "__main__":
     for extension in extensions:
-        bot.load_extension("cogs." + extension)
+        bot.load_extension(extension)
 
 # SPIKE SENT
 bot.run(cfg["discord"]["token"])
