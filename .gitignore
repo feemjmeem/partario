@@ -1,3 +1,4 @@
 Pipfile.lock
 *.code-workspace
 .vscode
+*.pyc

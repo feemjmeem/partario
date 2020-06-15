@@ -1,4 +1,10 @@
 {
+    "core": {
+        "extensions": [
+            "neural",
+            "youtube"
+        ]
+    },
     "discord": {
         "token": ""
     },
