@@ -54,13 +54,11 @@ class NeuralNetProcessor(commands.Cog):
         try:
             if cog == "all":
                 cog = cfg["core"]["extensions"]
-                # figure out how to only specify unload/load once for both cases
-                for c in cog:
-                    self.bot.unload_extension(c)
-                    self.bot.load_extension(c)
             else:
-                self.bot.unload_extension(cog)
-                self.bot.load_extension(cog) 
+                cog = [cog]
+            for c in cog:
+                self.bot.unload_extension(c)
+                self.bot.load_extension(c)
         except Exception as e:
             await ctx.send(f"Oh no: {type(e).__name__} - {e}")
         else:
