@@ -2,15 +2,18 @@
 import html
 import sys
 import googleapiclient.discovery
-from builtins import cfg
 from datetime import datetime
 from discord.ext import commands
+from partarutil import loadconfig
+
+# load config
+cfg = loadconfig("youtube")
 
 # initialize youtube api
 youts = googleapiclient.discovery.build(
     "youtube",
     "v3",
-    developerKey = cfg["youtube"]["token"]
+    developerKey = cfg["token"]
 )
 
 class YoutubeProcessor(commands.Cog):

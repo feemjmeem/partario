@@ -1,13 +1,11 @@
 from discord.ext import commands
 import builtins
 import json
+from partarutil import loadconfig
 
 # load config
-with open("config.json", "r") as cfg_json:
-    cfg = json.load(cfg_json)
-    
+cfg = loadconfig()
 # pre-init
-builtins.cfg = cfg
 extensions = cfg["core"]["extensions"]
 
 # init

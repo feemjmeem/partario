@@ -2,11 +2,22 @@
     "core": {
         "extensions": [
             "cogs.neural",
+            "cogs.twitter",
             "cogs.youtube"
         ]
     },
     "discord": {
         "token": ""
+    },
+    "twitter": {
+        "consumer": {
+            "token": "",
+            "secret": ""
+        },
+        "access": {
+            "token": "",
+            "secret": ""
+        }
     },
     "youtube": {
         "token": ""

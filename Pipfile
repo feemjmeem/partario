@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 "discord.py" = "*"
 google-api-python-client = "*"
+tweepy = "*"
+urlextract = "*"
 
 [dev-packages]
 pylint = "*"
