@@ -1,6 +1,7 @@
 {
     "core": {
         "extensions": [
+            "cogs.images",
             "cogs.neural",
             "cogs.twitter",
             "cogs.youtube"
