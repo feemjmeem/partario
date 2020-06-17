@@ -1,5 +1,7 @@
+!.keep
 __pycache__
 Pipfile.lock
 *.code-workspace
 .vscode
 *.pyc
+files/*
