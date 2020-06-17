@@ -4,7 +4,21 @@
             "cogs.neural",
             "cogs.twitter",
             "cogs.youtube"
-        ]
+        ],
+        "filedir": "files"
+    },
+    "images": {
+        "fonts": {
+            "unscii-16-full.otf": {
+                "type": "otf",
+                "url": "http://pelulamu.net/unscii/unscii-16-full.otf"
+            }
+        },
+        "virtual_console": {
+            "width": 80,
+            "height": 43,
+            "font": "unscii-16-full.otf"
+        }
     },
     "discord": {
         "token": ""
