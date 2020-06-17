@@ -8,6 +8,7 @@ name = "pypi"
 google-api-python-client = "*"
 tweepy = "*"
 urlextract = "*"
+pillow = "*"
 
 [dev-packages]
 pylint = "*"
