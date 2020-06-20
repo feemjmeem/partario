@@ -4,6 +4,7 @@
             "cogs.images",
             "cogs.neural",
             "cogs.twitter",
+            "cogs.wikipedia",
             "cogs.youtube"
         ],
         "filedir": "files"
@@ -33,6 +34,8 @@
             "token": "",
             "secret": ""
         }
+    },
+    "wikipedia": {
     },
     "youtube": {
         "token": ""
