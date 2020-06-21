@@ -22,12 +22,12 @@ class YoutubeProcessor(commands.Cog):
         
     # youtube search
     @commands.command()
-    async def yt(self, ctx, *args):
+    async def yt(self, ctx, *, sq: str):
         # form query, limiting fields to what we're going to use
         query = youts.search().list(
             part="snippet",
             maxResults=1,
-            q=" ".join(args[:]),
+            q=sq,
             fields="items(id(videoId),snippet(title,channelTitle,publishedAt))"
         )
         r = query.execute()
