@@ -1,18 +1,19 @@
 from discord.ext import commands
 import builtins
 import json
-from partarutil import loadconfig
-
-# load config
-cfg = loadconfig()
-# pre-init
-extensions = cfg["core"]["extensions"]
 
 # init
 bot = commands.Bot(command_prefix='.')
+try:
+    bot.load_extension("cogs.partarutil")
+except Exception as e:
+    print(e)
+bot.cfg = bot.get_cog("PartarioUtilityProcessor").loadconfig()
+extensions = bot.cfg["core"]["extensions"]
+
 if __name__ == "__main__":
     for extension in extensions:
         bot.load_extension(extension)
 
 # SPIKE SENT
-bot.run(cfg["discord"]["token"])
+bot.run(bot.cfg["discord"]["token"])

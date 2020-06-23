@@ -1,12 +1,11 @@
-import wikipedia
+from wikipedia import wikipedia
 from discord.ext import commands
-from partarutil import loadconfig
-
-cfg = loadconfig("wikipedia")
 
 class WikiProcessor(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.partarutil = self.bot.get_cog("PartarioUtilityProcessor")
+        self.cfg = self.partarutil.loadconfig("wikipedia")       
         
     @commands.command()
     async def w(self, ctx, *, sq: str):

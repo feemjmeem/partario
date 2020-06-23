@@ -1,5 +1,16 @@
 {
     "core": {
+        "contexts": {
+            "<guild_id>": {
+                "devel": [
+                    "<channel_id>"
+                ],
+                "exclude": [],
+                "include": [
+                    "all"
+                ]
+            }
+        },
         "extensions": [
             "cogs.images",
             "cogs.neural",
@@ -7,7 +18,10 @@
             "cogs.wikipedia",
             "cogs.youtube"
         ],
-        "filedir": "files"
+        "options": {
+            "exclude_devel": true,
+            "filedir": "files"
+        }
     },
     "images": {
         "fonts": {

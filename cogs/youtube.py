@@ -4,27 +4,23 @@ import sys
 import googleapiclient.discovery
 from datetime import datetime
 from discord.ext import commands
-from partarutil import loadconfig
-
-# load config
-cfg = loadconfig("youtube")
-
-# initialize youtube api
-youts = googleapiclient.discovery.build(
-    "youtube",
-    "v3",
-    developerKey = cfg["token"]
-)
 
 class YoutubeProcessor(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.partarutil = self.bot.get_cog("PartarioUtilityProcessor")
+        self.cfg = self.partarutil.loadconfig("youtube")
+        self.youts = googleapiclient.discovery.build(
+            "youtube",
+            "v3",
+            developerKey = self.cfg["token"]
+        )
         
     # youtube search
     @commands.command()
     async def yt(self, ctx, *, sq: str):
         # form query, limiting fields to what we're going to use
-        query = youts.search().list(
+        query = self.youts.search().list(
             part="snippet",
             maxResults=1,
             q=sq,

@@ -1,14 +1,12 @@
 # partario's cpu is a neural net processor: a learning computer
 import discord
-from partarutil import loadconfig
 from discord.ext import commands
-
-# load config
-cfg = loadconfig("core")
 
 class NeuralNetProcessor(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.partarutil = self.bot.get_cog("PartarioUtilityProcessor")
+        self.cfg = self.partarutil.loadconfig("core")
         
     @commands.command()
     async def pet(self, ctx, member: discord.Member = None):
@@ -56,7 +54,7 @@ class NeuralNetProcessor(commands.Cog):
     async def reload(self, ctx, *, cog: str):
         try:
             if cog == "all":
-                cog = cfg["extensions"]
+                cog = self.cfg["extensions"]
             else:
                 cog = [cog]
             for c in cog:
