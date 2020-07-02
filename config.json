@@ -8,10 +8,55 @@
                 "exclude": [],
                 "include": [
                     "all"
-                ]
+                ],
+                "pronoun_roles": {
+                    "<role_id>": {
+                        "nom": "they",
+                        "obl": "them",
+                        "pos": "theirs",
+                        "ref": "themselves"
+                    },
+                    "<role_id>": {
+                        "nom": "she",
+                        "obl": "her",
+                        "pos": "hers",
+                        "ref": "herself"
+                    },
+                    "<role_id>": {
+                        "nom": "ze",
+                        "obl": "hir",
+                        "pos": "hirs",
+                        "ref": "hirself"
+                    },
+                    "<role_id>": {
+                        "nom": "he",
+                        "obl": "him",
+                        "pos": "his",
+                        "ref": "himself"
+                    },
+                    "<role_id>": {
+                        "nom": "ey",
+                        "obl": "em",
+                        "pos": "eirs",
+                        "ref": "eirself"
+                    },
+                    "<role_id>": {
+                        "nom": "sie",
+                        "obl": "hir",
+                        "pos": "hirs",
+                        "ref": "hirself"
+                    },
+                    "<role_id>": {
+                        "nom": "zhe",
+                        "obl": "zhim",
+                        "pos": "zhir",
+                        "ref": "zhimself"
+                    }
+                }
             }
         },
         "extensions": [
+            "cogs.identity",
             "cogs.images",
             "cogs.neural",
             "cogs.twitter",
