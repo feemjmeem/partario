@@ -1,3 +1,4 @@
+# utility functions for the bot
 import json
 import requests
 from os import path
@@ -7,6 +8,7 @@ class PartarioUtilityProcessor(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    # populate a dict with the config from config.json
     def loadconfig(self, part = None):
         with open("config.json", "r") as cfg_json:
             cfg = json.load(cfg_json)
@@ -18,6 +20,7 @@ class PartarioUtilityProcessor(commands.Cog):
             else:
                 return(cfg)
 
+    # get an arbitrary file -- use sparingly unless you hate yourself
     def getfile(self, url = None, dest = None, force = False):
         if (url is None) or (dest is None):
             raise ValueError("getfile: both url and dest are required")

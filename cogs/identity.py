@@ -7,13 +7,16 @@ class IdentityProcessor(commands.Cog):
         self.bot = bot
         self.partarutil = self.bot.get_cog("PartarioUtilityProcessor")
         self.cfg = self.partarutil.loadconfig("core")
+        # initialize pronoun_roles empty dict and populate on reload of cog
         self.pronoun_roles = {}
         self.pronoun_roles = self.build_genders()
             
     @commands.Cog.listener()
     async def on_ready(self):
+        # the first time we start up, we have to wait for the handle to open before we can populate this
         self.pronoun_roles = self.build_genders()
-        
+    
+    # get pronouns via the pronoun roles associated with a user    
     @commands.command()
     async def pronouns(self, ctx, member: discord.Member = None):
         if member:
@@ -32,7 +35,8 @@ class IdentityProcessor(commands.Cog):
             else:
                 o = "%s has not selected preferred pronouns." % (member.mention)
             await ctx.send(o)
-            
+           
+    # set or unset pronouns based upon pronoun roles defined in config.json
     @commands.command()
     async def mypronouns(self, ctx, selector: str = None):
         o = None
@@ -66,7 +70,8 @@ class IdentityProcessor(commands.Cog):
         else:
             o = "Which pronouns did you want to set? Try using the nominative pronoun on its own (i.e she, they, he)."
         await ctx.send(o)
-           
+
+    # abstract reload of pronoun roles from config.json
     def build_genders(self):
         prs = {}
         for g in self.bot.guilds:

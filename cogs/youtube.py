@@ -10,16 +10,17 @@ class YoutubeProcessor(commands.Cog):
         self.bot = bot
         self.partarutil = self.bot.get_cog("PartarioUtilityProcessor")
         self.cfg = self.partarutil.loadconfig("youtube")
+        # build a youtube handle
         self.youts = googleapiclient.discovery.build(
             "youtube",
             "v3",
             developerKey = self.cfg["token"]
         )
         
-    # youtube search
+    # youtube search which returns the first video for a given query
     @commands.command()
     async def yt(self, ctx, *, sq: str):
-        # form query, limiting fields to what we're going to use
+        # form query, limiting fields to what we're going to use to save on api credits
         query = self.youts.search().list(
             part="snippet",
             maxResults=1,

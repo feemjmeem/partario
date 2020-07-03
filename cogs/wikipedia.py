@@ -6,7 +6,8 @@ class WikiProcessor(commands.Cog):
         self.bot = bot
         self.partarutil = self.bot.get_cog("PartarioUtilityProcessor")
         self.cfg = self.partarutil.loadconfig("wikipedia")       
-        
+    
+    # perform a wikipedia search and return an article    
     @commands.command()
     async def w(self, ctx, *, sq: str):
         try:

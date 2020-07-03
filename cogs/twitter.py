@@ -14,7 +14,8 @@ class TwitterProcessor(commands.Cog):
         auth.set_access_token(self.cfg["access"]["token"], self.cfg["access"]["secret"])
         self.twits = tweepy.API(auth)
 
-
+    # listen for a tweet, check if the tweet is a quote/retweet, and post the original tweet.
+    # this listens to itself too, so it can follow retweet chains.
     @commands.Cog.listener()
     async def on_message(self, message):
         if "twitter.com" in message.content:

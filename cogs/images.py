@@ -10,6 +10,7 @@ class ImageProcessor(commands.Cog):
         self.cfg = self.partarutil.loadconfig("images")
         self.corecfg = self.partarutil.loadconfig("core")
 
+    # download fonts as specified in config.json
     @commands.command()
     @commands.is_owner()
     async def getfonts(self, ctx):

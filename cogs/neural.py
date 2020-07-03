@@ -7,10 +7,11 @@ class NeuralNetProcessor(commands.Cog):
         self.bot = bot
         self.partarutil = self.bot.get_cog("PartarioUtilityProcessor")
         self.cfg = self.partarutil.loadconfig("core")
-        
+       
+    # you may praise a tail
     @commands.command()
     async def pet(self, ctx, member: discord.Member = None):
-    # who now?
+        # who now?
         giver = ctx.author
         if member == giver:
             o = "*stares at %s and shakes his head.*" % (giver.mention)
@@ -19,11 +20,13 @@ class NeuralNetProcessor(commands.Cog):
         elif member:
             o = "*glances between %s and %s uncomfortably.*" % (giver.mention, member.mention)
         await ctx.send(o)
-        
+       
+    # no really who the fuck is feem
     @commands.command()
     async def feem(self, ctx):
         await ctx.send("who the fuck is feem")
-        
+       
+    # load an unloaded cog
     @commands.command()
     @commands.is_owner()
     async def load(self, ctx, *, cog: str):
@@ -33,12 +36,13 @@ class NeuralNetProcessor(commands.Cog):
             await ctx.send(f"Oh no: {type(e).__name__} - {e}")
         else:
             await ctx.send("i deed it")
-    
+   
+    # unload a loaded cog 
     @commands.command()
     @commands.is_owner()
     async def unload(self, ctx, *, cog: str):
-        if cog == "cogs.neural":
-            await ctx.send("NOPE")
+        if cog == "cogs.neural": # i cannot self-terminate
+            await ctx.send("NOPE") 
         else:
             try:
                 self.bot.unload_extension(cog)
@@ -46,7 +50,8 @@ class NeuralNetProcessor(commands.Cog):
                 await ctx.send(f"Oh no: {type(e).__name__} - {e}")
             else:
                 await ctx.send("i deed it")
-    
+   
+    # reload a loaded cog 
     @commands.command()
     @commands.is_owner()
     async def reload(self, ctx, *, cog: str):
