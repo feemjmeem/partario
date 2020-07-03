@@ -16,54 +16,36 @@ class IdentityProcessor(commands.Cog):
         
     @commands.command()
     async def pronouns(self, ctx, member: discord.Member = None):
-        if member is None:
-            await ctx.send("Who did you mean again?")
-        else:
-            prs = []
-            for r in member.roles:
-                pr = self.gpr_from_role(r, ctx.guild, self.pronoun_roles)
-                if pr is not None:
-                    prs.append(pr)
+        if member:
             pronouns = []
-            if prs:
-                for pr in prs:
-                    pronouns.append(pr.nom)
-                    pronouns.append(pr.obl)
-                    pronouns.append(pr.pos)
-                    pronouns.append(pr.ref)
-                pronouns = list(dict.fromkeys(pronouns)) 
-                op = ', '.join(pronouns)
-                o = "%s's preferred pronouns are: %s." %(member.mention, op)
+            g = ctx.guild
+            guild_pronouns = self.pronoun_roles[str(g.id)]
+            for r in member.roles:
+                try:
+                    ps = guild_pronouns[str(r.id)]
+                    for p in ps.values():
+                        pronouns.append(p)
+                except:
+                    pass
+            if pronouns:
+                o = "%s's preferred pronouns are: %s" % (member.mention, ', '.join(pronouns))
             else:
-                o = "%s hasn't set their pronouns." % (member.mention)
+                o = "%s has not selected preferred pronouns." % (member.mention)
             await ctx.send(o)
-
+            
     def build_genders(self):
         prs = {}
-        for guild in self.bot.guilds:
-            gp = {}
-            for pr in self.cfg["contexts"][str(guild.id)]["pronoun_roles"].items():
-                r = dget(guild.roles, id=int(pr[0]))
-                p = self.GenderPronounRole(role = r, guild = guild, pmap = pr[1])
-                gp[str(r.id)] = p
-            prs[str(guild.id)] = gp
+        for g in self.bot.guilds:
+            prs[str(g.id)] = self.cfg["contexts"][str(g.id)]["pronoun_roles"]
         return(prs)
     
-    def gpr_from_role(self, role: discord.Role, guild: discord.Guild, pmap: dict):
-        try:
-            gprs = pmap[str(guild.id)][str(role.id)]
-            return(gprs)
-        except:
-            pass
-        
-    class GenderPronounRole():
-        def __init__(self, role: discord.Role, guild: discord.Guild, pmap: dict):
-            self.role = role 
-            self.guild = guild
-            self.nom = pmap["nom"]
-            self.obl = pmap["obl"]
-            self.pos = pmap["pos"]
-            self.ref = pmap["ref"]
-                
+    def build_pronouns(self, guild: discord.Guild):
+        prs = self.pronoun_roles[str(guild.id)]
+        pdict = {}
+        for r in prs:
+            ps = list(prs[r].values())
+            pdict[str(r)] = ps
+        return(pdict)
+    
 def setup(bot):
     bot.add_cog(IdentityProcessor(bot))

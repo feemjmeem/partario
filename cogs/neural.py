@@ -18,8 +18,6 @@ class NeuralNetProcessor(commands.Cog):
             o = "*shrugs and pats himself on the head.*"
         elif member:
             o = "*glances between %s and %s uncomfortably.*" % (giver.mention, member.mention)
-        else:
-            o = "*looks around, then shrugs.*"
         await ctx.send(o)
         
     @commands.command()
