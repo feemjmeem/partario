@@ -33,19 +33,45 @@ class IdentityProcessor(commands.Cog):
                 o = "%s has not selected preferred pronouns." % (member.mention)
             await ctx.send(o)
             
+    @commands.command()
+    async def mypronouns(self, ctx, selector: str = None):
+        o = None
+        op = 1
+        if "-" in selector:
+            op = 0
+            selector = selector.replace("-", "")
+        if selector is not None:
+            member = ctx.message.author
+            proles = {}
+            g = ctx.guild
+            guild_pronouns = self.pronoun_roles[str(g.id)]
+            for r in guild_pronouns:
+                p = guild_pronouns[r]["nom"]
+                proles[p] = r
+            gr = proles.get(selector, None)
+            if gr is not None:
+                try:
+                    role = dget(g.roles, id=int(gr))
+                    if op:
+                        await member.add_roles(role)
+                        o = "%s have been added to your pronouns, %s" % (role.name, member.mention)
+                    else:
+                        await member.remove_roles(role)
+                        o = "%s have been removed from your pronouns, %s" % (role.name, member.mention)
+                except Exception as e:
+                    print(e)
+                    o = "Hmm. I'm confused. Try again."
+            else:
+                o = "Hmm. I can't find that pronoun. Try again using the nominative pronoun on its own (i.e. she, they, he)."
+        else:
+            o = "Which pronouns did you want to set? Try using the nominative pronoun on its own (i.e she, they, he)."
+        await ctx.send(o)
+           
     def build_genders(self):
         prs = {}
         for g in self.bot.guilds:
             prs[str(g.id)] = self.cfg["contexts"][str(g.id)]["pronoun_roles"]
         return(prs)
-    
-    def build_pronouns(self, guild: discord.Guild):
-        prs = self.pronoun_roles[str(guild.id)]
-        pdict = {}
-        for r in prs:
-            ps = list(prs[r].values())
-            pdict[str(r)] = ps
-        return(pdict)
     
 def setup(bot):
     bot.add_cog(IdentityProcessor(bot))
